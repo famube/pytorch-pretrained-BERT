@@ -431,6 +431,7 @@ def main():
         train_dataloader = DataLoader(train_dataset, batch_size=args.train_batch_size, shuffle=True)
 
         model.train()
+        help(model)
         for _ in trange(int(args.num_train_epochs), desc="Epoch"):
             tr_loss = 0
             nb_tr_examples, nb_tr_steps = 0, 0
