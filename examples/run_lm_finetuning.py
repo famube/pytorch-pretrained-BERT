@@ -428,13 +428,7 @@ def main():
         logger.info("  Batch size = %d", args.train_batch_size)
         logger.info("  Num steps = %d", num_train_steps)
 
-        if args.local_rank == -1:
-            train_sampler = RandomSampler(train_dataset)
-        else:
-            #TODO: check if this works with current data generator from disk that relies on file.__next__
-            # (it doesn't return item back by index)
-            train_sampler = DistributedSampler(train_dataset)
-        train_dataloader = DataLoader(train_dataset, sampler=train_sampler, batch_size=args.train_batch_size, shuffle=True)
+        train_dataloader = DataLoader(train_dataset, batch_size=args.train_batch_size, shuffle=True)
 
         model.train()
         for _ in trange(int(args.num_train_epochs), desc="Epoch"):
