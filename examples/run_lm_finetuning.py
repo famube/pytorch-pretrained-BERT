@@ -30,7 +30,7 @@ from torch.utils.data import DataLoader, RandomSampler
 from torch.utils.data.distributed import DistributedSampler
 
 from pytorch_pretrained_bert.tokenization import BertTokenizer
-from pytorch_pretrained_bert.modeling import BertForPreTraining
+from pytorch_pretrained_bert.modeling import BertForMaskedLM
 from pytorch_pretrained_bert.optimization import BertAdam
 
 from torch.utils.data import Dataset
@@ -379,7 +379,7 @@ def main():
             len(train_dataset) / args.train_batch_size / args.gradient_accumulation_steps * args.num_train_epochs)
 
     # Prepare model
-    model = BertForPreTraining.from_pretrained(args.bert_model)
+    model = BertForMaskedLM.from_pretrained(args.bert_model)
     if args.fp16:
         model.half()
     model.to(device)
